@@ -9,7 +9,14 @@
           </button>
         </div>
         <div class="post__content">
-          <p class="post__text">{{item.body}}</p>
+          <p v-if="!item.readMore" class="post__text">{{item.body.slice(0,50)}}<span>...</span></p>
+          <p v-if="item.readMore" class="post__text">{{item.body}}</p>
+          <button
+            class="post__read-more-btn" 
+            @click="item.readMore = !item.readMore">
+          <span v-if="!item.readMore">read more</span>
+          <span v-else>read less</span>
+        </button>
         </div>
         <h3 class="post__author"><span>author: </span>Bill Gates</h3>
       </li>
@@ -21,8 +28,8 @@
 export default {
   name: 'Posts',
   props: {
-    posts: Object,
-  }
+    posts: Array,
+  } 
 }
 </script>
 
@@ -67,7 +74,7 @@ export default {
     font-size: 1rem;
     color: #010101;
   }
-  &__author{ 
+  &__author{  
     font-size: 1rem;
     span{
       font-size: .8rem;
@@ -85,6 +92,17 @@ export default {
     &:focus{
       border: 1px #991111 solid;
       background: #b6b6b6;
+    }
+  }
+  &__read-more-btn{
+    border: none;
+    color: #1158aa;
+    background: transparent;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1rem;
+
+    &:hover{
+      color: #2b74c7;
     }
   }
 }
