@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <h1 class="">Posts App</h1>
-    <!-- <SearchInput @show-value="handleInput"/> -->
     <Posts :posts="results"/> 
   </div>
 </template>
@@ -11,7 +10,7 @@ import SearchInput from './components/SearchInput.vue'
 import Posts from '@/components/Posts.vue'
 
 import axios from "axios";
-import debounce from "lodash.debounce";
+// import debounce from "lodash.debounce";
 
 const API = "https://jsonplaceholder.typicode.com/";
 
@@ -29,17 +28,23 @@ export default {
     }
   },
   methods: {
-    handleInput: debounce(function () {
+    handleInput(){
       axios
         .get(`${API}posts/`)
         .then((response) => {
           this.results = response.data;
-          console.log(response.data);
+          this.addReadMore();
         })
         .catch((error) => {
           console.log(error);
         });
-    }, 100),
+    },
+    addReadMore() {
+      for (let i = 0; i < this.results.length; i++) {
+        const el = this.results[i];
+        Object.assign(el, {readMore: false});
+      }
+    },
   },
   mounted(){
     this.handleInput();
