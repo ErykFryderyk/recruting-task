@@ -5,7 +5,7 @@
         <div class="post__header">
           <h2 class="post__title">{{item.title}}</h2>
           <button class="post__remove-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+            <font-awesome-icon class="remove-btn-icon" icon="trash-can" />
           </button>
         </div>
         <div class="post__content">
@@ -51,9 +51,10 @@ export default {
 
   &__item{
     border: 1px solid #1158aa;
-    border-radius: 3px;
+    border-radius: 4px;
     padding: 5px 10px;
     margin-bottom: 20px;
+    background-color: #fafafa;
   }
 
   &__header{
@@ -81,18 +82,34 @@ export default {
     }
   }
   &__remove-btn{
-    border: 1px solid orangered;
-    border-radius: 5px;
+    border: none;
     background: transparent;
     text-align: center;
-    width: 26px;
-    height: 26px;
+    // width: 30px;
+    // height: 30px;
+    padding: 4px;
     outline: none;
+    cursor: pointer;
 
     &:focus{
-      border: 1px #991111 solid;
-      background: #b6b6b6;
+      .remove-btn-icon{
+        color: #9b3a3a;
+      }
     }
+
+    &:hover{
+      .remove-btn-icon{
+        color: #9b3a3a;
+        transform: rotate(10deg) scale(1.1);
+      }
+    }
+
+
+    .remove-btn-icon{
+      font-size: 20px;
+      color:#ac5959;
+      transition: color .3s ease-in-out, transform .3s ease-in-out;
+    }    
   }
   &__read-more-btn{
     border: none;
