@@ -1,8 +1,9 @@
 <template>
   <div class="header">
-    <h1 class="header__title">Posts App <font-awesome-icon icon="" /></h1>
+    <h1 class="header__title">Posts App</h1>
     <div class="header__box">
-      <button class="add-new-post">
+      <button class="add-new-post"
+        @click="$emit('toggle-modal')">
         <font-awesome-icon class="add-new-post__icon" icon="calendar-plus" />
       </button>
     </div>
@@ -33,7 +34,7 @@
   border: none;
   outline: none;
   cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  
 
   &__icon{
     font-size: 28px;
