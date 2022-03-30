@@ -18,7 +18,7 @@
           <span v-else>read less</span>
         </button>
         </div>
-        <h3 class="post__author"><span>author: </span>Bill Gates</h3>
+        <h3 class="post__author"><span>author: </span>{{users[item.userId - 1].name}}</h3>
       </li>
     </ul>
   </div>
@@ -29,6 +29,7 @@ export default {
   name: 'Posts',
   props: {
     posts: Array,
+    users: Array,
   } 
 }
 </script>
