@@ -2,7 +2,7 @@
   <div class="modal modal__overlay">
     <div class="modal__inner">
       <div class="modal__header">
-        <h1 class="modal__title">My new Modal</h1>
+        <h1 class="modal__title">Modal</h1>
         <button class="modal__close-modal-btn"
           @click="$emit('toggle-modal')"
         >
@@ -11,15 +11,25 @@
       </div>
       <form class="form">
         <div class="form__elements">
-          <label class="form__form-element-label" for="">Name:</label>
-          <input class="form__form-element-input" type="text">
-          <label class="form__form-element-label" for="">Lastname:</label>
-          <input class="form__form-element-input" type="text">
-          <label class="form__form-element-label" for="">E-mail:</label>
-          <input class="form__form-element-input" type="text">
-          <label class="form__form-element-label" for="">Text:</label>
-          <input class="form__form-element-input" type="text">
-          <button type="submit">Wyslij</button>
+          <div class="field-container">
+            <input class="field-input" autocompleted="off" type="text" name="name" required>
+            <label class="field-placeholder" for="name">
+                <span class="placeholder-name">Name</span>
+            </label>
+          </div>
+          <div class="field-container">
+            <input class="field-input" autocompleted="off" type="text" name="last-name" required>
+            <label class="field-placeholder" for="last-name">
+                <span class="placeholder-name">Last name</span>
+            </label>
+          </div>
+          <div class="field-container">
+            <input class="field-input" autocompleted="off" type="number" name="telephone" required>
+            <label class="field-placeholder" for="telephone">
+                <span class="placeholder-name">Telephone</span>
+            </label>
+          </div>
+          <button class="form__form-submit-button" type="submit">Wyslij</button>
         </div>
       </form>
     </div>
@@ -77,7 +87,7 @@
       cursor: pointer;
       transition: .1s color ease-in;
       &:hover{
-        color:#707070;
+        color:#3b3b3b;
       }
   }
 }
@@ -98,5 +108,82 @@
     border: none;
     border-bottom: 1px solid #707070; 
   }
+  &__form-submit-button{
+    margin-top: 20px;
+    width: 100px;
+    font-size: 16px;
+    padding: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #707070;
+    cursor: pointer;
+    outline: none;
+    transition: background-color .1s ease-in-out;
+    &:hover{
+      background: #707070;
+    }
+  }
+}
+
+/* CUSTOM INPUT FORM */
+.field-container{
+    max-width: 500px;
+    position: relative;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* background-color: red; */
+}
+
+.field-input{
+    width: 100%;
+    height: 100%;
+    color: #292929;
+    padding-top: 27px;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.field-placeholder{
+    position: absolute;
+    bottom:0;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.field-placeholder::after{
+    content: '';
+    position: absolute;
+    left:0px;
+    bottom: -1px;
+    height: 100%;
+    width: 100%;
+    border-bottom: 2px solid #4b7acf;
+    transform: translateX(-100%);
+    transition: transform .3s ease;
+}
+
+.placeholder-name{
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    transition: all 0.3s ease;
+}
+
+.field-input:focus + .field-placeholder .placeholder-name,
+.field-input:valid + .field-placeholder .placeholder-name{
+    transform: translateY(-100%);
+    font-size: 14px;
+    color:#4b7acf;
+}
+
+.field-input:focus + .field-placeholder::after,
+.field-input:valid+.field-placeholder::after {
+    transform: translateX(0%);
 }
 </style>
