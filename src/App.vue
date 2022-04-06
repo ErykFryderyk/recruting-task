@@ -1,9 +1,6 @@
 <template>
   <div id="app">
     <MyHeader @toggle-modal="toggleModal"/>
-    <!-- <header class="header">
-      <h1 class="header__title">Posts App</h1>
-    </header> -->
     <Posts :posts="results" :users="users"/>
     <Transition name="fade">
       <MyModal 
@@ -21,7 +18,7 @@ import MyHeader from '@/components/MyHeader.vue'
 import MyModal from '@/components/MyModal.vue'
 
 import axios from "axios";
-// import debounce from "lodash.debounce";
+// import debounce from "lodash.debounce"; 
 
 const API = "https://jsonplaceholder.typicode.com/";
 
