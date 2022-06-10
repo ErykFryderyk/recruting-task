@@ -17,11 +17,6 @@
     />
     <span class="pagination-seperator">|</span>
     Showing: {{ totalRecords }}
-    <!-- <select name="" id="">
-      <option v-for="opction in perPageOptions" :key="opction" :value="opcion">
-        {{ opction }}
-      </option>
-    </select> -->
   </div>
 </template>
 
@@ -30,12 +25,13 @@ export default {
   name: "Pagination",
   props: [
     "totalRecords", // ile jest POSTÓW (elementów w tablicy RESULTS)
-    "perPageOptions", //
+    // "perPageOptions", // props z wariantami wyświetlania elmentów na stronie
+    "pagination",
   ],
   data() {
     return {
-      page: 1,
-      perPage: this.perPageOptions[0], // ile ma być wyświetlanch elemetnów e.g. 20 elementów nas stronie <select>20 or 50, or 100</select>
+      page: this.pagination.page,
+      perPage: this.pagination.perPage, // ile ma być wyświetlanch elemetnów e.g. 20 elementów nas stronie <select>20 or 50, or 100</select>
     };
   },
   computed: {
@@ -50,16 +46,22 @@ export default {
     },
   },
   methods: {
-    changePage(value) {
-      switch (value) {
-        case 0: this.page = 1; break;
-        case -1: this.page = this.page > 1 ? this.page - 1 : this.page; break;
-        case +1: this.page = this.page < this.pages ? this.page + 1 : this.page; break;
-        case this.pages: this.page = this.pages; break;
-      
-        default:
+    changePage(val) {
+      switch (val) {
+        case 0:
+          this.page = 1;
+          break;
+        case -1:
+          this.page = this.page > 1 ? this.page - 1 : this.page;
+          break;
+        case 1:
+          this.page = this.page < this.pages ? this.page + 1 : this.page;
+          break;
+        case this.pages:
+          this.page = this.pages;
           break;
       }
+      this.$emit("input", { page: this.page, perPage: this.perPage });
     },
   },
 };
