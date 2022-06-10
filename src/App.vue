@@ -2,10 +2,13 @@
   <div id="app">
     <MyHeader @toggle-modal="toggleModal" />
     <Pagination
+      v-if="results"
       :totalRecords="results.length"
-      :perPageOptions="[20,50,100]"
+      :perPageOptions="perPageOptions"
+      :pagination="pagination"
+      @input="updateValue"
     />
-    <Posts :posts="results" :users="users" />
+    <Posts :posts="computedTableData" :users="users" />
     <Transition name="fade">
       <MyModal v-show="modalVisibility" @toggle-modal="toggleModal" />
     </Transition>
@@ -20,10 +23,8 @@ import MyModal from "@/components/MyModal.vue";
 import Pagination from "./components/Pagination.vue";
 
 import axios from "axios";
-// import debounce from "lodash.debounce";
 
 const API = "https://jsonplaceholder.typicode.com/";
-const perPageOptions = [20, 50, 100];
 
 export default {
   name: "App",
@@ -36,11 +37,12 @@ export default {
   },
   data() {
     return {
-      perPageOptions,
+      perPageOptions: [20, 50, 100],
       modalVisibility: false, //show and hide popup
       mainBody: document.body,
       searchValue: "",
       selectValue: "",
+      pagination: { page: 1, perPage: 20},
       results: [
         {
           userId: 4,
@@ -204,9 +206,24 @@ export default {
       this.modalVisibility = !this.modalVisibility;
       this.mainBody.classList.toggle("modal-active");
     },
+    updateValue(value) {
+      this.pagination.page = value.page;
+      this.pagination.perPage = value.perPage;
+    },
   },
   mounted() {
     this.handleInput();
+  },
+  computed: {
+    computedTableData() {
+      if (!this.results) return [];
+      else {
+        const firstIndex = (this.pagination.page - 1) * this.pagination.perPage;
+        const lastIndex = this.pagination.page * this.pagination.perPage;
+
+        return this.results.slice(firstIndex, lastIndex);
+      }
+    },
   },
 };
 </script>
